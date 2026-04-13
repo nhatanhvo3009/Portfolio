@@ -1,15 +1,525 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="./main.css">
-    <title>Nhat Anh Vo's Portfolio</title>
-    <meta name="description" content="My portfolio">
+  <meta charset="UTF-8" />
+  <title>Nhat Anh Vo | Finance Student</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Optional: Google Font similar to a clean professional theme -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #070b10;
+      --bg-section: #0b1118;
+      --accent: #3eb0ff;
+      --accent-soft: rgba(62, 176, 255, 0.12);
+      --text-main: #f5f7fa;
+      --text-muted: #a7b3c5;
+      --border-subtle: #1b2431;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #152133 0, #070b10 45%, #020409 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    /* HERO / HEADER */
+
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      padding: 24px clamp(18px, 5vw, 64px) 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      color: var(--text-main);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("https://valakvo3009-yqhgb.wordpress.com/wp-content/uploads/2026/04/nhat-anh-vo-finance-student-69d567b2522fc.png");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.14; /* subtle background */
+      pointer-events: none;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(62,176,255,0.32), transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 960px;
+      z-index: 1;
+    }
+
+    /* SITE TITLE BOX – stays on one line and shifted left */
+
+    .site-title-box {
+      display: inline-block;
+      white-space: nowrap; /* forces single line */
+      background: rgba(7, 11, 16, 0.9);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 14px 45px rgba(0, 0, 0, 0.75);
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: clamp(0.9rem, 1.1vw, 1rem);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      /* shift slightly to the left */
+      transform: translateX(-6px);
+    }
+
+    .site-title-box span {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .hero-heading {
+      margin-top: 28px;
+      font-size: clamp(2rem, 3.1vw, 2.6rem);
+      font-weight: 600;
+      max-width: 700px;
+    }
+
+    .hero-heading span {
+      color: var(--accent);
+    }
+
+    /* GENERAL LAYOUT SECTIONS */
+
+    .section {
+      padding: 40px clamp(18px, 5vw, 64px);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-card {
+      background: var(--bg-section);
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      padding: clamp(20px, 3vw, 28px);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.72);
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: clamp(24px, 4vw, 32px);
+      align-items: center;
+    }
+
+    .two-column.reverse {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    }
+
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .section-heading {
+      font-size: 1.7rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .section-text {
+      color: var(--text-muted);
+      font-size: 0.97rem;
+      max-width: 620px;
+    }
+
+    /* Buttons */
+
+    .button-row {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 11px 20px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease, border-color 0.18s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #05070b;
+      box-shadow: 0 12px 28px rgba(62, 176, 255, 0.32);
+    }
+
+    .btn-primary:hover {
+      background: #55baff;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-main);
+      border-color: var(--border-subtle);
+      background-image: radial-gradient(circle at top left, rgba(62,176,255,0.16), transparent 70%);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Images */
+
+    .img-portrait {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: #05070b;
+    }
+
+    .img-square {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: #05070b;
+    }
+
+    /* CONTACT SECTION */
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: clamp(24px, 4vw, 32px);
+      align-items: flex-start;
+    }
+
+    .contact-heading {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .contact-text {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+    }
+
+    .form-card {
+      background: #05070b;
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      padding: 18px 18px 20px;
+    }
+
+    .form-field {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 8px;
+      border: 1px solid #1c2634;
+      background: #05070b;
+      color: var(--text-main);
+      font-size: 0.92rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(62,176,255,0.45);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      margin-top: 40px;
+      padding: 26px clamp(18px, 5vw, 64px) 24px;
+      background: #05070b;
+      border-top: 1px solid #101723;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      margin-bottom: 18px;
+    }
+
+    .footer-heading {
+      font-size: 0.92rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .footer-text {
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .footer-muted {
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      border-top: 1px solid #101723;
+      padding-top: 10px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .two-column,
+      .two-column.reverse,
+      .contact-layout,
+      .footer-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        min-height: 60vh;
+      }
+
+      .site-title-box {
+        font-size: 0.84rem;
+        padding-inline: 16px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 20px;
+      }
+
+      .hero-heading {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <a href="https://www.linkedin.com/in/andrewvo30092006/">LinkedIn</a>
-        <a href="">Facebook Account</a>
-        <a href="https://drive.google.com/file/d/12VZjPCoI2SC94FSEJDYyVCZ3M6QvDqGF/view?usp=sharing">Portfolio</a>
+  <div class="page">
+
+    <!-- HERO / HEADER -->
+    <header class="hero">
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <!-- Site Title Box (single line, slightly left) -->
+        <div class="site-title-box">
+          <span>Nhat Anh Vo</span> | Finance Student
+        </div>
+
+        <!-- Main hero heading similar to your current text -->
+        <h1 class="hero-heading">
+          Aspiring finance professional ready to contribute analytical insight and disciplined execution.
+        </h1>
+      </div>
     </header>
+
+    <main>
+      <!-- ABOUT SECTION -->
+      <section class="section">
+        <div class="section-card">
+          <div class="two-column">
+            <div>
+              <div class="img-portrait">
+                <!-- Portrait image -->
+                <img src="https://valakvo3009-yqhgb.wordpress.com/wp-content/uploads/2026/04/nhat-anh-vo-finance-student-69d567b2522fc.png"
+                     alt="An organized study workspace with finance notes and a laptop." />
+              </div>
+            </div>
+            <div>
+              <div class="section-title">About</div>
+              <h2 class="section-heading">About</h2>
+              <p class="section-text">
+                I'm Nhat Anh Vo, a finance student with a strong foundation in corporate finance, investment analysis, and quantitative methods. 
+                I’m passionate about applying data-driven thinking to real-world business problems, particularly in valuation, risk management, and strategic decision-making.
+              </p>
+              <div class="button-row">
+                <a href="#" class="btn btn-primary">View résumé</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- OVERVIEW SECTION -->
+      <section class="section">
+        <div class="section-card">
+          <div class="two-column reverse">
+            <div>
+              <div class="section-title">Overview</div>
+              <h2 class="section-heading">Overview</h2>
+              <p class="section-text">
+                I combine strong quantitative coursework with practical project experience, from building financial models to analyzing market data. 
+                My goal is to bring structure, clarity, and insight to complex financial questions, whether through Excel, Python, or structured research.
+              </p>
+              <div class="button-row">
+                <a href="#" class="btn btn-ghost">View projects</a>
+              </div>
+            </div>
+            <div>
+              <div class="img-square">
+                <!-- Secondary image -->
+                <img src="https://valakvo3009-yqhgb.wordpress.com/wp-content/uploads/2026/04/nhat-anh-vo-finance-student-69d567d864b3f.png"
+                     alt="A close-up of a polished dark workspace with a laptop and finance materials." />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section class="section">
+        <div class="section-card">
+          <div class="contact-layout">
+            <div>
+              <h2 class="contact-heading">Contact Nhat</h2>
+              <p class="contact-text">
+                Reach out to discuss internship opportunities, project collaborations, or to learn more about my experience in finance, 
+                analysis, and student leadership.
+              </p>
+            </div>
+
+            <div class="form-card">
+              <form>
+                <div class="form-field">
+                  <label class="form-label" for="name">Name</label>
+                  <input class="form-input" type="text" id="name" name="name" placeholder="Your name" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="email">Email</label>
+                  <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="message">Message</label>
+                  <textarea class="form-textarea" id="message" name="message" placeholder="How can I help?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-columns">
+          <div>
+            <div class="footer-heading">Contact</div>
+            <div class="footer-text">
+              Houston–Dallas<br />
+              nhatanh.finance@gmail.com
+            </div>
+          </div>
+          <div>
+            <div class="footer-heading">Hours</div>
+            <div class="footer-text">
+              Available to respond to email at all times; open to scheduling calls or meetings by appointment.
+            </div>
+          </div>
+          <div>
+            <div class="footer-heading">Social</div>
+            <div class="footer-text">
+              Facebook · Instagram · TikTok
+            </div>
+          </div>
+        </div>
+        <div class="footer-muted">
+          Designed with care · ©
+          <script>document.write(new Date().getFullYear());</script>
+          Nhat Anh Vo
+        </div>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
